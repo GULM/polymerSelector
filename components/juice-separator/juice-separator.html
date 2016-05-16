@@ -1,0 +1,58 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<dom-module id="ab-juice-separator">
+
+  <template>
+
+		<style  is="custom-style">
+      ::host{
+        display: inline-block;
+        width: 30px;
+        height: 32px;
+      }
+			.breaker{
+				background-color:#fff;
+				border-top-left-radius: 15px;
+				border-top-right-radius: 15px;
+				width: 30px;
+				height: 32px;
+				margin-top: -29px;
+			}
+			.body{
+				width: 30px;
+				height: 30px;
+        background-color: var(--ab-juice-separator-color);
+			}
+      .offset{
+        width: 30px;
+        background-color: var(--ab-juice-separator-color);
+        height: var(--ab-juice-separator-offset);
+      }
+  </style>
+
+  <div class="offset"></div>
+		<div class="body"></div>
+		<div class="breaker"></div>
+  </template>
+
+  <script>
+  Polymer({
+    is: "ab-juice-separator",
+    ready: abJuiceSeparatorReady,
+		properties: {
+        color: {
+          type: String,
+          value: "#000"
+        },
+        offset:{
+          type: Number,
+          value: 0
+        }
+      }
+  });
+  function abJuiceSeparatorReady(){
+    this.customStyle["--ab-juice-separator-color"] = this.color;
+    this.customStyle["--ab-juice-separator-offset"] = this.offset + "px";
+  }
+  </script>
+
+</dom-module>

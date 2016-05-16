@@ -1,0 +1,75 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="juice/juice.html">
+<link rel="import" href="juice-separator/juice-separator.html">
+
+<dom-module id="juice-component">
+
+  <template>
+		<style>
+  		ab-juice, ab-juice-separator{
+  			display: inline-block;
+  			vertical-align: top;
+  			margin: 0 0 0 -4px;
+  			padding: 0;
+  		}
+  	</style>
+		<div id="container">
+		</div>
+  </template>
+
+  <script>
+  Polymer({
+    is: "juice-component",
+		ready: readyComponent,
+		properties: {
+        color: {
+          type: String,
+          value: "#000"
+        },
+				height: {
+          type: Number,
+          value: 100
+        },
+				time: {
+          type: Number,
+          value: 1
+        },
+        number: {
+          type: Number,
+          value: 1
+        }
+      }
+  });
+
+  function getPoints(length, parabola = 3.162){
+    var _parabola = parabola * 20000;
+    var eachPoint = (_parabola / length) / 9000;
+    var points = [];
+    for(var i = 0; i < length; i++){
+      points.push(Math.abs( (parabola) - (eachPoint * i) ))
+    }
+    return points;
+  }
+
+  function readyComponent(){
+    var elements = "";
+    var last = 0;
+    var realNumber = this.number - (this.number % 2);
+    var points = getPoints(realNumber + 1);
+    for(var i = 0; i < realNumber + 1; i++){
+      if((i+ 1) % 2 === 1){
+        console.log(points[i]);
+        elements += "<ab-juice offset='" + points[i] * 30 + "' delay='" + parseInt((Math.random() * 100) % 5) + "' time='"+ this.time +"' color='" + this.color + "' height='"+ this.height +"'></ab-juice>\n";
+      }
+      else{
+        last = parseInt((Math.random() * 654) % 100);
+        elements += "<ab-juice-separator offset='" + parseInt((Math.random() * 100) % (points[i] * 30)) + "' color='" + this.color + "'></ab-juice-separator>\n";
+      }
+    }
+    this.$.container.innerHTML = elements;
+  }
+
+  </script>
+
+</dom-module>

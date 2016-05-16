@@ -1,0 +1,71 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="juice-component.html">
+<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+
+<dom-module id="juice-main-bar">
+
+	<template>
+	<style is="custom-style">
+		::host{
+			display: block;
+		}
+		.body{
+			width: var(--juice-main-bar-width);
+			display: inline-block;
+			height: auto;
+			border-top-left-radius: 10px;
+			border-top-right-radius: 10px;
+			background-color: var(--juice-main-bar-color);
+		}
+		juice-component{
+			display: block;
+			margin-left: 4px;
+		}
+		.body ::content > *{
+			font-family: 'Montserrat', sans-serif;
+		}
+		.body ::content > h1{
+			text-align: center;
+		}
+		.body ::content > p{
+			padding: 10px;
+		}
+	</style>
+
+	<div class="body">
+		<content></content>
+	</div>
+	<juice-component color="{{color}}" number="{{number}}" height="{{height}}"></juice-component>
+	</template>
+
+<script>
+	Polymer({
+		is: "juice-main-bar",
+		ready: abJuiceMenuBarReady,
+		attributeChanged: abJuiceMenuBarReady,
+		properties: {
+				color: {
+					type: String,
+					value: "#000"
+				},
+				height: {
+					type: Number,
+					value: 100
+				},
+				time: {
+					type: Number,
+					value: 1
+				},
+				number: {
+					type: Number,
+					value: 1
+				}
+			}
+	});
+	function abJuiceMenuBarReady(){
+    this.customStyle["--juice-main-bar-color"] = this.color;
+    this.customStyle["--juice-main-bar-width"] = ((this.number + 1) * 30) + "px";
+  }
+</script>
+
+</dom-module>
